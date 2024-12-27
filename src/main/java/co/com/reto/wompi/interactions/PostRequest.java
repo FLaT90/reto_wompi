@@ -38,11 +38,12 @@ public class PostRequest implements Interaction {
                 .getProperty(baseUrl);
         actor.whoCan(CallAnApi.at(pathBaseUrl));
         actor.attemptsTo(
-               Post.to(requestUri)
-                       .with(request -> request
-                               .contentType(typeContent)
-                               .body(bodyRequest)
-                               .relaxedHTTPSValidation())
+                Post.to(requestUri)
+                        .with(request -> request
+                                .contentType(typeContent)
+                                .body(bodyRequest)
+                                .relaxedHTTPSValidation()
+                                .header("Authorization", "Bearer pub_stagtest_g2u0HQd3ZMh05hsSgTS2lUV8t3s4mOt7")) // Agrega la llave aquí
         );
         info(MESSAGE_GENERAL);
         SerenityRest.lastResponse().body().prettyPrint();
