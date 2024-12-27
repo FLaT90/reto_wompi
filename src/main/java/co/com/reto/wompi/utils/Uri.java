@@ -1,10 +1,8 @@
 package co.com.reto.wompi.utils;
 
 public enum Uri {
-    LIST_USERS("/merchants"),
-    CREATE_USER("/api/users"),
-    UPDATE_USER("/api/users/2"),
-    DELETE("/api/users/2");
+    ENDPOINT_TOKEN_AUTENTICATION("/merchants"),
+    CREATE_TRANSACTION("/transactions");
 
     private String uri;
 

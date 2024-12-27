@@ -8,44 +8,47 @@ import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.annotations.Subject;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
-import net.serenitybdd.screenplay.rest.interactions.Get;
+import net.serenitybdd.screenplay.rest.interactions.Post;
 import net.thucydides.core.util.EnvironmentVariables;
-import sun.security.ssl.SSLLogger;
+
+import static sun.security.ssl.SSLLogger.info;
+
 
 @Slf4j
-public class GetRequest implements Interaction {
+public class PostRequest implements Interaction {
 
     private EnvironmentVariables environmentVariables;
     private static final String MESSAGE_GENERAL = "El servicio se consumio de forma exitosa";
     private String baseUrl;
-    private final String request;
+    private String bodyRequest;
+    private final String requestUri;
     private final String typeContent;
 
-    public GetRequest(String baseUrl, String request, String typeContent) {
+    public PostRequest(String baseUrl, String bodyRequest, String requestUri, String typeContent) {
         this.baseUrl = baseUrl;
-        this.request = request;
+        this.bodyRequest = bodyRequest;
+        this.requestUri = requestUri;
         this.typeContent = typeContent;
     }
 
     @Override
-    @Subject("{0} El usuario obtiene urlBase: #baseUrl - segun su ambiente: #typeContent, y consumen el servicio #request")
+    @Subject("{0} #nameActor obtiene urlBase: #baseUrl - segun su ambiente: #typeContent, y consumen el servicio")
     public <T extends Actor> void performAs(T actor) {
         String pathBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(baseUrl);
         actor.whoCan(CallAnApi.at(pathBaseUrl));
         actor.attemptsTo(
-                Get.resource(request)
-                        .with(requestSpecification -> requestSpecification
-                                .accept(typeContent)
-                                .relaxedHTTPSValidation()
-                                .header("Authorization", "Bearer pub_stagtest_g2u0HQd3ZMh05hsSgTS2lUV8t3s4mOt7")) // Agrega la llave aquí
+               Post.to(requestUri)
+                       .with(request -> request
+                               .contentType(typeContent)
+                               .body(bodyRequest)
+                               .relaxedHTTPSValidation())
         );
-        SSLLogger.info(MESSAGE_GENERAL);
+        info(MESSAGE_GENERAL);
         SerenityRest.lastResponse().body().prettyPrint();
     }
 
-
-    public static GetRequest params(String baseUrl, String request, String typeContent) {
-        return Tasks.instrumented(GetRequest.class, baseUrl, request, typeContent);
+    public static PostRequest params(String baseUrl, String bodyRequest, String requestUri, String typeContent) {
+        return Tasks.instrumented(PostRequest.class, baseUrl, bodyRequest, requestUri, typeContent);
     }
 }

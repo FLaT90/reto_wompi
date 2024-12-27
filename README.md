@@ -7,6 +7,10 @@
 #### URL BASE a consumir: https://api.co.uat.wompi.dev/v1
 #### URI - GET: https://api.co.uat.wompi.dev/v1/merchants/
 #### URI - POST: https://api.co.uat.wompi.dev/v1/transactions
+#### LLAVES: pub_stagtest_g2u0HQd3ZMh05hsSgTS2lUV8t3s4mOt7,
+prv_stagtest_5i0ZGIGiFcDQifYsXxvsny7Y37tKqFWg,
+stagtest_events_2PDUmhMywUkvb1LvxYnayFbmofT7w39N,
+stagtest_integrity_nAIBuqayW70XpUqJS4qf4STYiISd89Fp
 
 #### Funciones automatizadas: GET, POST
 #### Patron de diseño: Screenplay

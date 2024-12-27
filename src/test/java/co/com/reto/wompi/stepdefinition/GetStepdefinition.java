@@ -27,7 +27,7 @@ public class GetStepdefinition {
         OnStage.theActorCalled(ACTOR).attemptsTo(
                 Call.service().apiget(
                         BASE_URL.replace(TYPE_ENVIRONMENT,ENV_QA),
-                        Uri.LIST_USERS.getUri(),
+                        Uri.ENDPOINT_TOKEN_AUTENTICATION.getUri(),
                         String.valueOf(JSON)));
     }
 

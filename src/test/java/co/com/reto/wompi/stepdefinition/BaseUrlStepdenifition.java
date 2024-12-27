@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
+import sun.security.ssl.SSLLogger;
 
 import static co.com.reto.wompi.utils.Constants.*;
 
@@ -18,7 +19,7 @@ public class BaseUrlStepdenifition {
 
     @Given("{string} obtiene la baseurl de la api")
     public void getTheBaseurlFromTheApi(String actor) {
-        log.info(String.format(
+        SSLLogger.info(String.format(
                 FORMAT_THREE,
                 actor,
                 CALL_SERVICE,
